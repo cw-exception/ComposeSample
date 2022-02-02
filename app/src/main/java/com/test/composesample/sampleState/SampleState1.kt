@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 
-class SampleBasic1 {
+class SampleState1 {
     @Composable
     fun HelloContent() {
         Column(modifier = Modifier.padding(16.dp)) {
