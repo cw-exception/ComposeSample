@@ -1,9 +1,5 @@
-package com.test.composesample
+package com.test.composesample.samplebasic
 
-import android.R
-import android.content.Context
-import android.content.res.Resources
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button

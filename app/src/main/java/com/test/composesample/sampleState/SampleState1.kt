@@ -1,14 +1,18 @@
-package com.test.composesample.samplebasic
+package com.test.composesample.sampleState
 
 import android.R
 import android.content.Context
 import android.content.res.Resources
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,21 +23,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 
-class Sample5 {
-
+class SampleBasic1 {
     @Composable
-    @Deprecated("Example with bug")
-    fun ListWithBug(myList: List<String>) {
-        var items = 0
-
-        Row(horizontalArrangement = Arrangement.SpaceBetween) {
-            Column {
-                for (item in myList) {
-                    Text("Item: $item")
-                    items++ // Avoid! Side-effect of the column recomposing.
-                }
-            }
-            Text("Count: $items")
+    fun HelloContent() {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Hello!",
+                modifier = Modifier.padding(bottom = 8.dp),
+                style = MaterialTheme.typography.h5
+            )
+            OutlinedTextField(
+                value = "",
+                onValueChange = { },
+                label = { Text("Name") }
+            )
         }
     }
 

@@ -1,4 +1,4 @@
-package com.test.composesample
+package com.test.composesample.samplebasic
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.TabRowDefaults.Divider

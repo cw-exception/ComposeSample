@@ -1,4 +1,4 @@
-package com.test.composesample
+package com.test.composesample.samplebasic
 
 import android.R
 import android.content.Context
