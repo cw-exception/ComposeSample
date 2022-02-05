@@ -47,7 +47,7 @@ class SampleList1 {
     }
 
     @Composable
-    fun NameListVertical(names: List<String>,
+    private fun NameListVertical(names: List<String>,
                  modifier: Modifier = Modifier)
     {
 
@@ -62,23 +62,11 @@ class SampleList1 {
         }
 
     }
-//        val count = remember { mutableStateOf(0)}
-//
-//        LazyColumn(modifier = modifier) {
-//            itemsIndexed(items = names)
-//            { index, item ->
-//                val name = "$index-$item"
-//                CounterButton1(name, count.value) { newCnt -> count.value = newCnt }
-//                Divider(color = Color.DarkGray)
-//            }
-//        }
 
-
-    }
 
 
     @Composable
-    fun NameListHorizontal(names: List<String>,
+    private fun NameListHorizontal(names: List<String>,
                          modifier: Modifier = Modifier)
     {
         val count = remember { mutableStateOf(0)}
@@ -94,7 +82,7 @@ class SampleList1 {
 
 
     @Composable
-    fun CounterButton1(param: String, count: Int, updateCount: (Int) -> Unit) {
+    private fun CounterButton1(param: String, count: Int, updateCount: (Int) -> Unit) {
         var isSelected by remember { mutableStateOf(false) }
         val backgroundColor by animateColorAsState(
             if (isSelected)
@@ -125,8 +113,8 @@ class SampleList1 {
 
 
     @Composable
-    fun CounterButton2(param: String) {
-        val count = remember { mutableStateOf(0)}
+    private fun CounterButton2(param: String) {
+        val count = remember { mutableStateOf(0) }
         var isSelected by remember { mutableStateOf(false) }
         val backgroundColor by animateColorAsState(
             if (isSelected)
@@ -135,23 +123,25 @@ class SampleList1 {
                 Color.Transparent
         )
 
+
         Button(
             onClick = { count.value++ },
             modifier = Modifier
                 .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor= COLORS_RAINBOW[count.value % COLOR_SET_SIZE]
+                backgroundColor = COLORS_RAINBOW[count.value % COLOR_SET_SIZE]
             )
 
         ) {
             Text(
-                text ="$param cnt:${count.value}",
+                text = "$param cnt:${count.value}",
                 modifier = Modifier
                     .padding(9.dp)
                     .background(color = backgroundColor)
-                    .clickable(onClick = { isSelected = !isSelected})
+                    .clickable(onClick = { isSelected = !isSelected })
 
             )
         }
+    }
 
 }

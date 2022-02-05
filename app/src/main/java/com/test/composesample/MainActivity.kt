@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.tooling.preview.Preview
+import com.test.composesample.sampleList.SampleList1
 import com.test.composesample.sampleState.*
 import com.test.composesample.samplebasic.*
 import com.test.composesample.ui.theme.ComposeSampleTheme
@@ -35,13 +36,22 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
 //                    samplebasic()
-
-                    sampleState()
+//                    sampleState()
+                    sampleList()
                 }
             }
         }
     }
 
+
+    @Composable
+    fun sampleList() {
+        Column {
+            SampleList1().ListHorizontalPrint(100)
+            SampleList1().ListVerticalPrint(100)
+
+        }
+    }
     @Composable
     fun sampleState() {
         val scrollState = rememberScrollState()
