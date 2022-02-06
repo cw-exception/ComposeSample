@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.tooling.preview.Preview
 import com.test.composesample.sampleList.SampleList1
+import com.test.composesample.sampleList.SampleList2
+import com.test.composesample.sampleSlotAPI.SampleSlotAPI1
 import com.test.composesample.sampleState.*
 import com.test.composesample.samplebasic.*
 import com.test.composesample.ui.theme.ComposeSampleTheme
@@ -37,19 +39,24 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
 //                    samplebasic()
 //                    sampleState()
-                    sampleList()
+//                    sampleList()
+                    sampleSlotAPI()
                 }
             }
         }
     }
 
+    @Composable
+    fun sampleSlotAPI() {
+        SampleSlotAPI1().MakeButton()
+    }
 
     @Composable
     fun sampleList() {
         Column {
-            SampleList1().ListHorizontalPrint(100)
-            SampleList1().ListVerticalPrint(100)
-
+//            SampleList1().ListHorizontalPrint(100)
+//            SampleList1().ListVerticalPrint(100)
+            SampleList2().ListVerticalPrint(listNum = 100)
         }
     }
     @Composable
@@ -62,7 +69,8 @@ class MainActivity : ComponentActivity() {
 //            SampleState2().HelloContent()
 //            SampleState3().HelloScreen()
 
-            SampleState4ViewModel().HelloScreen()
+//            SampleState4ViewModel().HelloScreen()
+
         }
     }
 
