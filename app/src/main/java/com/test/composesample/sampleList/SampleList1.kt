@@ -8,10 +8,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.runtime.*
@@ -22,126 +19,62 @@ import com.test.composesample.ui.theme.COLORS_RAINBOW
 import com.test.composesample.ui.theme.COLOR_SET_SIZE
 
 
-class SampleList5_1 {
+class SampleList1 {
     @Composable
-    fun ListHorizontalPrint(listNum:Int) {
-        val array = ArrayList<String>()
-        for (i in 0..listNum) {
-            array.add("$i | ")
-        }
+    fun LazyListTest() {
+        // 스크롤의 position의 상태를 저장. 
+        val scrollState = rememberLazyListState()
 
-        NameListHorizontal(array,
-            Modifier.padding(8.dp))
-    }
-
-
-    @Composable
-    fun ListVerticalPrint(listNum:Int) {
-        val array = ArrayList<String>()
-        for (i in 0..listNum) {
-            array.add("$i")
-        }
-
-        NameListVertical(array,
-        Modifier.padding(8.dp))
-    }
-
-    @Composable
-    private fun NameListVertical(names: List<String>,
-                 modifier: Modifier = Modifier)
-    {
-
-
-        LazyColumn(modifier = modifier) {
-            itemsIndexed(items = names)
-            { index, item ->
-                val name = "$index-$item"
-                CounterButton2(name)
-                Divider(color = Color.DarkGray)
-            }
-        }
-
-    }
-
-
-
-    @Composable
-    private fun NameListHorizontal(names: List<String>,
-                         modifier: Modifier = Modifier)
-    {
-        val count = remember { mutableStateOf(0)}
-
-        LazyRow(modifier = modifier) {
-            items(items = names)
-            {
-                CounterButton1(it, count.value) { newCnt -> count.value = newCnt }
-                Divider(color = Color.DarkGray)
+        LazyColumn(state = scrollState) {
+            items(100) {
+                Text("Item $it")
             }
         }
     }
 
 
     @Composable
-    private fun CounterButton1(param: String, count: Int, updateCount: (Int) -> Unit) {
-        var isSelected by remember { mutableStateOf(false) }
-        val backgroundColor by animateColorAsState(
-            if (isSelected)
-                Color.Red
-            else
-                Color.Transparent
-        )
-
-        Button(
-            onClick = {updateCount(count + 1)},
-            modifier = Modifier
-                .background(color = backgroundColor)
-                .fillMaxWidth()
-                .clickable(onClick = { isSelected = !isSelected }),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor= if(count % 3 == 0) Color.Green else Color.Yellow
-            )
-        ) {
-            Text(
-                text ="$param cnt:$count",
-                modifier = Modifier
-                    .padding(14.dp)
-
-            )
-        }
-
+    fun LazyListItemListTest() {
+        val array = ArrayList<String>()
+        for (i in 0..100)
+            array.add("add $i")
+        LazyListItemListTestImpl(itemList = array)
     }
-
 
     @Composable
-    private fun CounterButton2(param: String) {
-        val count = remember { mutableStateOf(0) }
-        var isSelected by remember { mutableStateOf(false) }
-        val backgroundColor by animateColorAsState(
-            if (isSelected)
-                Color.Red
-            else
-                Color.Transparent
-        )
+    private fun LazyListItemListTestImpl(itemList: List<String>) {
+        // 스크롤의 position의 상태를 저장. 
+        val scrollState = rememberLazyListState()
 
-
-        Button(
-            onClick = { count.value++ },
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = COLORS_RAINBOW[count.value % COLOR_SET_SIZE]
-            )
-
-        ) {
-            Text(
-                text = "$param cnt:${count.value}",
-                modifier = Modifier
-                    .padding(9.dp)
-                    .background(color = backgroundColor)
-                    .clickable(onClick = { isSelected = !isSelected })
-
-            )
+        LazyColumn(state = scrollState) {
+            items(items = itemList) {
+                Text("Item $it")
+            }
         }
     }
+
+    @Composable
+    fun LazyColumnTest() {
+        LazyColumn(modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp))
+        {
+            item {
+                Text(modifier = Modifier.background(Color.Red),
+                    text = "First item")
+            }
+            val list = listOf("second", "third", "fourth")
+            items(list) {
+                Text(modifier = Modifier.background(Color.Green),
+                    text = "$it item")
+            }
+
+            itemsIndexed(list) { index, item ->
+                Text(modifier = Modifier.background(Color.Yellow),
+                    text = "Added $item list index:$index")
+            }
+        }
+    }
+
 
 }

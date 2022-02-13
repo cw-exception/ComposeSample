@@ -26,7 +26,7 @@ import com.test.composesample.ui.theme.COLOR_SET_SIZE
 import kotlinx.coroutines.launch
 
 
-class SampleListCoil2 {
+class SampleList2Coil {
    @Composable
    fun SimpleListCoilSimpleLazyLoad() {
        val scrollState = rememberLazyListState()

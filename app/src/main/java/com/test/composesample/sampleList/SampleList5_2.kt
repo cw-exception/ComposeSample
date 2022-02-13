@@ -22,7 +22,7 @@ import com.test.composesample.ui.theme.COLORS_RAINBOW
 import com.test.composesample.ui.theme.COLOR_SET_SIZE
 
 
-class SampleList2 {
+class SampleList5_2 {
     @Composable
     fun ListVerticalPrint(listNum:Int) {
         val array = ArrayList<String>()

@@ -1,27 +1,21 @@
 package com.test.composesample
 
-import android.R
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.tooling.preview.Preview
-import com.test.composesample.sampleList.SampleList1
-import com.test.composesample.sampleList.SampleList2
+import com.test.composesample.sampleList.SampleList3AnimatedVisibility
+import com.test.composesample.sampleScaffold.SampleScaffold1
 import com.test.composesample.sampleSlotAPI.SampleSlotAPI1
-import com.test.composesample.sampleState.*
 import com.test.composesample.samplebasic.*
 import com.test.composesample.ui.theme.ComposeSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,11 +33,27 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
 //                    samplebasic()
 //                    sampleState()
-//                    sampleList()
-                    sampleSlotAPI()
+                    sampleList()
+//                    sampleSlotAPI()
+
                 }
             }
         }
+
+//        setContent {
+//            sampleScaffold()
+//        }
+    }
+
+    @Composable
+    fun sampleScaffold() {
+        SampleScaffold1().apply {
+            MyApp {
+//                MainScreen()
+                MainScreen2()
+            }
+        }
+
     }
 
     @Composable
@@ -51,12 +61,22 @@ class MainActivity : ComponentActivity() {
         SampleSlotAPI1().MakeButton()
     }
 
+
     @Composable
     fun sampleList() {
         Column {
-//            SampleList1().ListHorizontalPrint(100)
-//            SampleList1().ListVerticalPrint(100)
-            SampleList2().ListVerticalPrint(listNum = 100)
+
+//            SampleList1().LazyListTest()
+//            SampleList1().LazyListItemListTest()
+//              SampleList1().LazyColumnTest()
+//            SampleListCoil2().SimpleListCoilSimpleLazyLoad()
+//            SampleListCoil2().sampleAutoAnimateScrolling()
+            SampleList3AnimatedVisibility().SimpleList()
+
+//            SampleList5_1().ListHorizontalPrint(100)
+//            SampleList5_1().ListVerticalPrint(100)
+//            SampleList5_2().ListVerticalPrint(listNum = 100)
+
         }
     }
     @Composable
