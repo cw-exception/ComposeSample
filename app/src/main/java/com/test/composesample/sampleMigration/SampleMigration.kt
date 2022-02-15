@@ -1,4 +1,10 @@
-package com.test.composesample
+package com.test.composesample.sampleMigration
 
-class sampleMigration {
+import androidx.compose.runtime.Composable
+
+class SampleMigration {
+    @Composable
+    fun sampleMigration() {
+
+    }
 }

@@ -1,76 +1,73 @@
-package com.exam.sample.adapter
+package com.test.composesample.sampleMigration
 
+
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+
 import androidx.recyclerview.widget.RecyclerView
-import com.exam.sample.R
-import com.exam.sample.databinding.GridItemBinding
-import com.exam.sample.model.data.TrendingDetail
-import com.exam.sample.utils.Const
-import com.exam.sample.utils.extention.setCellSize
-import com.exam.sample.utils.extention.setRainBowBackgroundColorByPosition
-import java.util.ArrayList
+import com.bumptech.glide.Glide
 
-class StaggeredAdapter(private val itemListClick: (TrendingDetail, GridItemBinding) -> Unit) :
-    RecyclerView.Adapter<StaggeredAdapter.ItemViewHolder>() {
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-    private var recyclerItemList: ArrayList<TrendingDetail> = ArrayList()
+import com.test.composesample.R
+import java.util.*
+
+data class SampleData(val text:String, val url:String)
+class LegacyAdapter(val context: Context) : RecyclerView.Adapter<LegacyAdapter.ItemViewHolder>() {
+
+    private var listData: ArrayList<SampleData> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ItemViewHolder {
-
-        var binding: GridItemBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.grid_item,
-            parent,
-            false
-        )
-
-        return ItemViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent,false)
+        return ItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holderItem: ItemViewHolder, position: Int) {
-        recyclerItemList[position].let {
+        listData[position].let {
             holderItem.bind(it)
         }
     }
-
-    override fun getItemId(position: Int): Long {
-        return (recyclerItemList[position]).id.hashCode().toLong()
-    }
-
     override fun getItemCount(): Int {
-        return recyclerItemList.size
+        return listData.size
     }
 
-    fun initItem(list: ArrayList<TrendingDetail>) {
-        recyclerItemList.clear()
-        recyclerItemList.addAll(list)
+    fun initItem(list: ArrayList<SampleData>) {
+        listData.clear()
+        listData.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun clearItem() {
-        recyclerItemList.clear()
-        notifyDataSetChanged()
-    }
 
-    inner class ItemViewHolder(private val binding: GridItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TrendingDetail) {
-            binding.item = item
-            binding.root.setOnClickListener {
-                itemListClick(item, binding)
+    inner class ItemViewHolder(private val view: View) :
+        RecyclerView.ViewHolder(view) {
+
+        private var img: ImageView? = null
+        private var txt: TextView? = null
+        init {
+            img = view.findViewById<ImageView>(R.id.img)
+            txt = view.findViewById<TextView>(R.id.txt)
+        }
+        fun bind(item: SampleData) {
+            img!!.glideLoadForUrl(item.url)
+            txt!!.text = item.text
+            img!!.setOnClickListener {
+                Toast.makeText(context, "click $txt", Toast.LENGTH_SHORT).show()
             }
-            val width = item.images.fixed_width_small.width?.toFloat()
-            val height = item.images.fixed_width_small.height?.toFloat()
-            binding.img.layoutParams = binding.img.setCellSize(
-                width ?: Const.SCREEN_WIDTH_HALF,
-                height ?: Const.SCREEN_WIDTH_HALF
-            )
-            binding.img.setRainBowBackgroundColorByPosition(position)
-
-            binding.executePendingBindings()
         }
     }
+}
+
+
+
+fun ImageView.glideLoadForUrl(url: String) {
+    Glide.with(this)
+        .load(url)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(this)
 }

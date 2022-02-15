@@ -23,6 +23,15 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity
+        android:name=".sampleMigration.LegacyActivity"
+        android:exported="true">
+    </activity>
+    <activity
+        android:name=".sampleMigration.MigrationActivity"
+        android:exported="true">
+    </activity>
+
   </application>
 
 </manifest>

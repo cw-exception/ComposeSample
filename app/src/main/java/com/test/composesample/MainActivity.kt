@@ -1,8 +1,10 @@
 package com.test.composesample
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
@@ -14,6 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.test.composesample.sampleList.SampleList3AnimatedVisibility
+import com.test.composesample.sampleList.SampleList4StickyHeader
+import com.test.composesample.sampleMigration.LegacyActivity
+import com.test.composesample.sampleMigration.MigrationActivity
+import com.test.composesample.sampleMigration.SampleMigration
 import com.test.composesample.sampleScaffold.SampleScaffold1
 import com.test.composesample.sampleSlotAPI.SampleSlotAPI1
 import com.test.composesample.samplebasic.*
@@ -24,6 +30,7 @@ val TAG = "COMPOSE_TEST"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,6 +50,13 @@ class MainActivity : ComponentActivity() {
 //        setContent {
 //            sampleScaffold()
 //        }
+//        startActivity(Intent(this, LegacyActivity::class.java))
+        startActivity(Intent(this, MigrationActivity::class.java))
+    }
+
+    @Composable
+    fun sampleMigration() {
+        SampleMigration().sampleMigration()
     }
 
     @Composable
@@ -62,6 +76,8 @@ class MainActivity : ComponentActivity() {
     }
 
 
+
+    @ExperimentalFoundationApi
     @Composable
     fun sampleList() {
         Column {
@@ -71,8 +87,9 @@ class MainActivity : ComponentActivity() {
 //              SampleList1().LazyColumnTest()
 //            SampleListCoil2().SimpleListCoilSimpleLazyLoad()
 //            SampleListCoil2().sampleAutoAnimateScrolling()
-            SampleList3AnimatedVisibility().SimpleList()
+//            SampleList3AnimatedVisibility().SimpleList()
 
+            SampleList4StickyHeader().ListWithHeader()
 //            SampleList5_1().ListHorizontalPrint(100)
 //            SampleList5_1().ListVerticalPrint(100)
 //            SampleList5_2().ListVerticalPrint(listNum = 100)
